@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/synthesize_speech', methods=['GET'])
 def synthesize_speech():
-    polly = boto3.client('polly')
+    polly = boto3.Session().client('polly')
     args = request.args
     text = args.get('text', 'Hello World!')
     voice_id = args.get('voice_id', 'Joanna')
@@ -20,7 +20,7 @@ def synthesize_speech():
 
 @app.route('/describe_voices', methods=['GET'])
 def describe_voices():
-    polly = boto3.client('polly')
+    polly = boto3.Session().client('polly')
     voices = []
     response = polly.describe_voices()
     voices.extend(response['Voices'])
